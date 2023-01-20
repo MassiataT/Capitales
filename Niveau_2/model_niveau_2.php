@@ -4,8 +4,8 @@ require("../connexion_bdd.php");
 // Pays au hasard
 $nombre = [];
 $i = 0;
-while ($i < 10) { 
-    $alea = rand(1,196);
+while ($i < 10) {
+    $alea = rand(1, 196);
     if (!in_array($alea, $nombre)) {
         $nombre[] = $alea;
         $i++;
@@ -21,14 +21,14 @@ foreach ($nombre as $key => $value) {
         $liste .= $value . ', ';
     }
 }
-$premiersPays = $db->prepare('SELECT Nom_français, Capitale FROM liste WHERE id IN ('. $liste . ')');
+$premiersPays = $db->prepare('SELECT Nom_français, Capitale FROM liste WHERE id IN (' . $liste . ')');
 $premiersPays->execute();
 $listepays = $premiersPays->fetchAll();
 
 // verif
 // recuperer les capitales de bons pays si on est sur la page resultats
-$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-if ($url == "http://localhost:8080/Niveau_2/resultat_n2.php" ) {
+$url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+if (strpos($url, "Niveau_2/resultat_n2.php") !== false) {
     $test = [];
     foreach ($_POST as $key => $value) {
         array_push($test, trim(str_replace("_", " ", $key), " "));

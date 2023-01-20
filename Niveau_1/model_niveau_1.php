@@ -52,25 +52,25 @@ while ($z <= 10) {
     $z++;
     array_push($tableaucapitales, $listecapitaleshasard);
 }
-// var_dump($tableaucapitales);
-// echo "<br><br>";
+
 // verif
 // recuperer les bonnes capitales
-// $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-// if ($url == "http://localhost:8080/Niveau_1/resultat_n1.php") {
-$test = [];
-foreach ($_POST as $key => $value) {
-    array_push($test, trim(str_replace("_", " ", $key), " "));
-}
-$listetest = '';
-foreach ($test as $key1 => $value1) {
-    if ($key1 == 9) {
-        $listetest .= '"' . $value1 . '"';
-    } else {
-        $listetest .= '"' . $value1 . '", ';
+if (count($_POST) > 0) {
+    $test = [];
+    foreach ($_POST as $key => $value) {
+        array_push($test, trim(str_replace("_", " ", $key), " "));
     }
+    $listetest = '';
+    foreach ($test as $key1 => $value1) {
+        if ($key1 == 9) {
+            $listetest .= '"' . $value1 . '"';
+        } else {
+            $listetest .= '"' . $value1 . '", ';
+        }
+    }
+    var_dump($listetest);
 }
-$verif = $db->prepare('SELECT Nom_français, Capitale FROM liste WHERE Nom_français IN (' . $listetest . ')');
-$verif->execute();
-$correct = $verif->fetchAll();
+// $verif = $db->prepare('SELECT Nom_français, Capitale FROM liste WHERE Nom_français IN (' . $listetest . ')');
+// $verif->execute();
+// $correct = $verif->fetchAll();
 // }
